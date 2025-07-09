@@ -1,0 +1,4 @@
+SELECT BillingAddress, BillingCity, Total
+FROM invoices
+WHERE BillingCity = 'New York' and Total > 5
+ORDER by Total; 

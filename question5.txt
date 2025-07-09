@@ -1,0 +1,4 @@
+SELECT BillingAddress, BillingCity, InvoiceDate, Total
+FROM invoices
+WHERE InvoiceDate >  01/31/2009 or InvoiceDate < 05/02/2009
+ORDER by InvoiceDate DESC; 

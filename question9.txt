@@ -1,0 +1,5 @@
+select Name, AlbumId, Milliseconds
+from tracks
+where AlbumId in (select AlbumId 
+from albums
+where ArtistId = 8);

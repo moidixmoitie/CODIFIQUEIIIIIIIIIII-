@@ -1,0 +1,6 @@
+select title, ArtistId
+from albums
+where ArtistId in 
+(select ArtistId
+from artists
+where name like '%man%');

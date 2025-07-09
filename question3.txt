@@ -1,0 +1,4 @@
+SELECT BillingAddress, BillingCity, Total
+FROM invoices
+WHERE Total >5 and Total <15
+ORDER by Total; 

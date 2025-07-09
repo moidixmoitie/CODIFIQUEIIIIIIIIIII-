@@ -1,0 +1,83 @@
+ATV1>w>
+select FirstName, Country, City
+from customers
+where Country = 'Brazil' and (City = 'São Paulo' or City = 'Rio de Janeiro');
+
+ATV2 <W<
+select FirstName, Country, Title
+from employees
+where Country = 'Canada' and (Title = 'Sales Support Agent' or Title = 'Sales Manager');
+
+ATV3 >w>
+ select LastName
+from customers
+where LastName like 'P%';
+
+ATV4 <w<
+select Title, AlbumId
+from Albums
+where AlbumId > 10 and AlbumId < 20;
+
+ATV5>W>
+SELECT DISTINCT Country
+from customers;
+
+ATV6<w<
+Select InvoiceDate, BillingAddress
+from invoices
+ORDER by Total DESC
+limit 3;
+
+ATV7>w>
+SELECT Name
+from artists
+where ArtistId in (SELECT DISTINCT AlbumId from Albums where AlbumId > 0);
+
+ATV8<w<
+select firstname, lastname
+from customers
+where customerid in ( select customerid
+from invoices
+where total > 9);
+
+ATV9>w>
+select name
+from playlists
+where name like '%classical%';
+
+ATV10<w<
+select name
+from tracks
+where milliseconds > 180000
+
+ATV11>w>
+SELECT firstname
+FROM customers
+WHERE customerid IN (SELECT customerid
+FROM invoices
+WHERE invoiceid IN (SELECT invoiceid
+FROM invoice_items
+WHERE trackid IN (SELECT trackid
+FROM tracks
+WHERE composer LIKE '%Bach%')));
+
+
+atv12>w>
+SELECT FirstName, LastName
+FROM Customers
+WHERE CustomerId IN(
+SELECT CustomerId
+FROM Invoices
+WHERE InvoiceId IN (
+SELECT InvoiceId
+FROM Invoice_Items
+WHERE TrackId IN (
+SELECT TrackId
+FROM Tracks
+WHERE AlbumId IN (
+SELECT AlbumId
+FROM Albums
+WHERE ArtistId IN (
+SELECT ArtistId
+FROM Artists
+WHERE Name LIKE '%Queen%')))));
