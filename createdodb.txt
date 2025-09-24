@@ -1,0 +1,115 @@
+PRAGMA foreign_keys = ON;
+DROP TABLE IF EXISTS torcedor;
+create TABLE torcedor(
+id_torcedor integer primary key, 
+cpf integer not null UNIQUE,
+nome text not null,
+id_time integer,
+FOREIGN KEY(id_time)
+REFERENCES time(id_time)
+);
+
+DROP TABLE IF EXISTS jogador;
+CREATE TABLE jogador(
+id_jogador integer primary key,
+nome text not null,
+ano integer not null,
+id_time integer,
+FOREIGN KEY(id_time)
+REFERENCES time(id_time)
+on delete set null
+);
+
+DROP TABLE IF EXISTS time;
+CREATE TABLE time(
+id_time integer primary key,
+nome text not null,
+cidade text not null,
+ano integer not null,
+estado text not null,
+id_patrocinador integer,
+FOREIGN KEY(id_patrocinador)
+REFERENCES patrocinador(id_patrocinador)
+);
+
+
+
+DROP TABLE IF EXISTS patrocinador;
+CREATE TABLE patrocinador(
+id_patrocinador integer primary key,
+nome text not null,
+CNPJ text not null UNIQUE);
+
+insert into patrocinador(nome,cnpj)
+values('Morax', '55.127.879/2324-88'),
+('Ningguang', '11.989.451/3214-14'),
+('Pierro', '40.028.922/2847-55');
+
+insert into time(nome,cidade,estado,ano,id_patrocinador)
+values('mensageiros','Snezhnaya','Rio-de-janeiro', 2026,3),
+('cariocaquentes', 'Natlan', 'Rio-de-Janeiro', 2024,2),
+('plaastiquinhos', 'Liyue', 'São-Paulo', 2020,1),
+('light', 'Inazuma','Rio-de-Janeiro',2021,1),
+('aguasdorio', 'Fontaine', 'São-Paulo',2023,2),
+('verdinha', 'Sumeru', 'Rio-de-Janeiro', 2022,3);
+
+insert into jogador(nome,ano,id_time)
+values('Itto', 2021,3),
+('Navia',2023,3),
+('Lyney',2023,5),
+('Freminet',2023,5),
+('Lynette',2023,5),
+('Capitano',2024,1),
+('Arlecchino',2023,1),
+('La Signora',2021,1),
+('Mavuika',2024,2),
+('Hutao',2020,2),
+('Beidou',2020,4),
+('Clorinde',2023,4),
+('Cyno',2022,4),
+('Tighnari',2022,6),
+('Kinich',2024,6);
+
+select id_time, time.nome, cidade, ano, estado, id_patrocinador, patrocinador.nome 
+from time
+inner join patrocinador using(id_patrocinador);
+
+select id_jogador, jogador.nome, jogador.ano, id_time, time.nome
+from jogador
+left join time using(id_time);
+
+select * from patrocinador;
+
+select * from torcedor;
+
+update jogador
+set id_time = 1
+where id_time = 5;
+
+select id_time, time.nome, cidade, ano, estado, id_patrocinador, patrocinador.nome 
+from time
+inner join patrocinador using(id_patrocinador);
+
+select id_jogador, jogador.nome, jogador.ano, id_time, time.nome
+from jogador
+left join time using(id_time);
+
+select * from patrocinador;
+
+select * from torcedor;
+
+delete from time
+where estado like 'São-Paulo';
+
+select id_time, time.nome, cidade, ano, estado, id_patrocinador, patrocinador.nome 
+from time
+inner join patrocinador using(id_patrocinador);
+
+select id_jogador, jogador.nome, jogador.ano, id_time, time.nome
+from jogador
+left join time using(id_time);
+
+select * from patrocinador;
+
+select * from torcedor;
+
