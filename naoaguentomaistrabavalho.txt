@@ -1,0 +1,119 @@
+<script lang='ts'>
+abstract class Jogador
+{
+    public nome: string;
+    public vida: number;
+    public forca: number;
+
+    constructor(
+         nome: string,
+         vida: number = 50,
+         forca: number = 1
+    ) {
+        this.nome = nome;
+        this.vida = vida;
+        this.forca = forca;
+    }
+
+     abstract atacar(alvo: Jogador): void;
+
+    receberDano(dano: number): void
+    {
+        this.vida -= dano;
+        if (this.vida < 0) this.vida = 0;
+			return this.vida
+    }
+
+     estaVivo(): boolean
+    {
+        return this.vida > 0;
+    }
+}
+
+class Guerreiro extends Jogador
+{
+    constructor(nome: string, vida: number = 50, forca: number = 5)
+    {
+        super(nome, vida, forca);
+    }
+
+    atacar(alvo: Jogador): void
+    {
+        let dano = this.forca + Math.floor(Math.random()*10);
+        alvo.receberDano(dano);
+				return dano
+    }
+}
+
+class Arqueiro extends Jogador
+{
+    private mirando: boolean = false;
+
+    constructor(nome: string, vida: number = 50, forca: number = 1)
+    {
+        super(nome, vida, forca);
+    }
+
+    atacar(alvo: Jogador): void
+    {
+        //Se estiver mirando, causa mais dano
+        let dano = this.mirando ? 3*(this.forca + Math.floor(Math.random()*15)) : this.forca + Math.floor(Math.random()*10);
+        alvo.receberDano(dano);
+					return dano
+		this.mirando = false;
+    }
+
+    mirar()
+    {
+        this.mirando = true;
+    }
+}	
+	let morreeuisdy: Arqueiro = new Arqueiro("Cru de Bolo")
+	let naomorreuahahaahah: Guerreiro = new Guerreiro("Assado de Bolo")
+	let algo = $state (`Vocé eh o ${morreeuisdy.nome}, sempre foi o rival de ${naomorreuahahaahah.nome}, todos preferiam ele... nunca você. Mas você decide finalmente mudar isso...`)
+	let adorar = $state("")
+	let piuai = $state("") 
+	let distancia = 2
+
+		function ataquearqueiro(){
+		morreeuisdy.atacar(naomorreuahahaahah)
+		algo = `Você da uma flechada LETAL para sua vingança contra o ${naomorreuahahaahah.nome} e deu ${morreeuisdy.atacar(naomorreuahahaahah)}`		
+		adorar = ""
+		piuai = ""
+			if (distancia < 1){
+				adorar = `${naomorreuahahaahah.nome} te ataca... voce receve ${naomorreuahahaahah.atacar(morreeuisdy)}`
+				naomorreuahahaahah.atacar(morreeuisdy)
+				if (!naomorreuahahaahah.estaVivo()){
+					adorar = "seu inimigo pereceu e voce saiu vitorioso" 
+				}
+				
+		}
+			else{
+				distancia--;
+				`${naomorreuahahaahah.nome} esta a ${distancia} metros de você`
+			}
+			if(morreeuisdy.vida < 1){
+				algo = "voce morreu"
+			}
+			
+	}
+	function mirararuqeiro() {
+		morreeuisdy.mirar(naomorreuahahaahah)
+		piuai = `Voce está mirando`
+		if (distancia < 0){
+				adorar = `${naomorreuahahaahah.nome} te ataca... voce receve ${naomorreuahahaahah.atacar(morreeuisdy)}`
+				naomorreuahahaahah.atacar(morreeuisdy)
+				
+		}
+			else{
+				distancia--;
+				`${naomorreuahahaahah.nome} esta a ${distancia} metros de você`
+			}
+	}
+</script>
+		
+		<p>{algo}</p>
+		<p>{adorar}</p>
+		<p>{piuai}</p>
+		<button  type="button"onclick={ataquearqueiro}>Ataque...?</button>
+		<button type="button"onclick={mirararuqeiro}>Vai mirar....?</button>
